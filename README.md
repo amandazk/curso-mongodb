@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/github-assets/imagem1.png" alt="mongo" width=300 height=150>
+  <img src="/image/mongoDB.png" alt="mongo" width=300 height=150>
 </p>
 
 <h1 align="center">
