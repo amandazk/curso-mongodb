@@ -102,45 +102,45 @@ $ sudo mongo
  - *Com o OR, traz qualquer uma que seja verdadeira*
  ```
  db.alunos.find(
-{
-$or : [
-{"curso.nome" : "Sistemas de Informação"},
-{"curso.nome" : "Letras"}
-]
-}
+  {
+  $or : [
+  {"curso.nome" : "Sistemas de Informação"},  
+  {"curso.nome" : "Letras"}
+  ]
+  }
 )
  ```
  
  ```
  db.alunos.find(
-{
-$or : [
-{"curso.nome" : "Sistemas de Informação"},
-{"curso.nome" : "Letras"}
-],
-"nome" : "Daniela"
-}
+  {
+  $or : [
+  {"curso.nome" : "Sistemas de Informação"},
+  {"curso.nome" : "Letras"}
+  ],
+  "nome" : "Daniela"
+  }
 )
  ```
 
 ```
 db.alunos.find(
-{
-"curso.nome" : { $in : ["Sistemas de Informação", "Letras"
-]}
-})
+  {
+  "curso.nome" : { $in : ["Sistemas de Informação", "Letras"
+  ]}
+  })
 ```
 
 ### :arrow_right: Atualizando dados
 
 ```
 db.alunos.update{
-{"curso.nome" : "Sistema de Informação"}, #o que eu quero alterar
-{
-$set : {
-"curso.nome" : Sistemas de Informação" #para o que eu quero alterar
-}
-}
+  {"curso.nome" : "Sistema de Informação"}, #o que eu quero alterar
+  {
+  $set : {
+  "curso.nome" : Sistemas de Informação" #para o que eu quero alterar
+  }
+  }
 )
 ```
 - *O update, por padrão, só vai atualizar o primeiro documento que ele encontra*
@@ -148,15 +148,15 @@ $set : {
 - Para alterar múltiplas linhas:
 ```
 db.alunos.update{
-{"curso.nome" : "Sistema de Informação"},
-{
-$set : {
-"curso.nome" : Sistemas de Informação"
-}
-},
-{
-multi : true #default é false
-}
+  {"curso.nome" : "Sistema de Informação"},
+  {
+  $set : {
+  "curso.nome" : Sistemas de Informação"
+  }
+  },
+  {
+  multi : true #default é false
+  }
 )
 ```
 
@@ -164,12 +164,12 @@ multi : true #default é false
 - Adicionar um valor no array:
 ```
 db.alunos.update(
-{"id_" : {id do objeto}},
-{
-	$push: {
-		notas : 8.5
-	}
-}
+  {"id_" : {id do objeto}},
+  {
+  $push: {
+    notas : 8.5
+  }
+  }
 )
 ```
 - *$addToSet : não permite valores repitidos. Ele só adiciona o valor se não tiver um valor igual já no array*
@@ -180,9 +180,9 @@ db.alunos.update(
 db.alunos.update(
 {"id_" : {id do objeto}},
 {
-	$push: {
-		notas : {$each : [8.5, 9] }
-	}
+  $push: {
+    notas : {$each : [8.5, 9] }
+  }
 }
 )
 ```
@@ -191,9 +191,9 @@ db.alunos.update(
 - Para achar, por exemplo, alunos com uma determinada nota:
 ```
 db.alunos.find(
-{
-"notas" : 8.5
-}
+  {
+  "notas" : 8.5
+  }
 )
 ```
 
@@ -202,9 +202,9 @@ db.alunos.find(
 - Maior que:
 ```
 db.alunos.find(
-{
-"notas" : {$gt : 5} //maior que 5 
-}
+  {
+  "notas" : {$gt : 5} //maior que 5 
+  }
 )
 ```
 - *Basta uma nota do array ser maior que 5*
@@ -217,9 +217,9 @@ db.alunos.find({"notas":{$lt:5}})
 - Se quiser só um registro, usar o findOne:
 ```
 db.alunos.findOne(
-{
-"notas" : {$gt : 5} //maior que 5
-}
+  {
+  "notas" : {$gt : 5} //maior que 5
+  }
 )
 ```
 
@@ -234,15 +234,15 @@ db.alunos.find().sort({"nome" : 1}).limit(3) //só três registros
 - Inserir uma posição do mapa em um aluno:
 ```
 db.alunos.update(
-{ "_id" : {id do objeto} },
-{
-$set: {
-localizacao : {
-endereco : "Rua exemplo, 222",
-cidade : "São Paulo",
-coordenadas : [-23.3232323,
+  { "_id" : {id do objeto} },
+  {
+  $set: {
+  localizacao : {
+  endereco : "Rua exemplo, 222",
+  cidade : "São Paulo",
+  coordenadas : [-23.3232323,
 		-32.3232323],
-type : "Point"		
+  type : "Point"		
 }}})
 ```
 - *"Coordinates" é o padrão em inglês, para poder fazer buscas. Assim como o "type"*
@@ -250,18 +250,18 @@ type : "Point"
 - Busca por posicionamento 
 ```
 db.alunos.aggregate([
-{
-$geoNear : {
-near {
-coordinates: [-32.323232, -32,323232],
-type: "Point"
-},
-distanceField : "distancia.calculada",
-spherical : true,
-num : 3 //só traz três resultados
-}
-},
-{ $skip : 1 } //ignorar o primeiro resultado, que é a própria pessoa
+  {
+  $geoNear : {
+  near {
+  coordinates: [-32.323232, -32,323232],
+  type: "Point"
+  },
+  distanceField : "distancia.calculada",
+  spherical : true,
+  num : 3 //só traz três resultados
+  }
+  },
+  { $skip : 1 } //ignorar o primeiro resultado, que é a própria pessoa
 ])
 ```
 - Buscar a partir do campo "localização":
