@@ -24,7 +24,7 @@ $ sudo systemctl status mongodb
 $ sudo mongo
 ```
 
-### Criando e inserindo em uma coleção
+### :arrow_right: Criando e inserindo em uma coleção
 
  - Criar uma coleção:
  ```
@@ -77,7 +77,7 @@ $ sudo mongo
  )
  ```
  
- ### Consultando os dados
+ ### :arrow_right: Consultando os dados
  
  - Para ver os resultados de uma forma mais organizada:
  ```
@@ -131,7 +131,7 @@ db.alunos.find(
 })
 ```
 
-### Atualizando dados
+### :arrow_right: Atualizando dados
 
 ```
 db.alunos.update{
@@ -186,7 +186,7 @@ db.alunos.update(
 }
 )
 ```
-### Ordenando e limitando os dados
+### :arrow_right: Ordenando e limitando os dados
 
 - Para achar, por exemplo, alunos com uma determinada nota:
 ```
@@ -229,7 +229,7 @@ db.alunos.find().sort({"nome" : 1}) //-1 é decrescente
 db.alunos.find().sort({"nome" : 1}).limit(3) //só três registros
 ```
 
-### Busca por proximidade
+### :arrow_right: Busca por proximidade
 
 - Inserir uma posição do mapa em um aluno:
 ```
