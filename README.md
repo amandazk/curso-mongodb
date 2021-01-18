@@ -18,7 +18,7 @@ Curso "MongoDB: Uma alternativa aos bancos relacionais tradicionais" da platafor
 
 ### Instalação 
 
-```
+```bash
 $ sudo apt install mongodb
 $ sudo systemctl status mongodb
 $ sudo mongo
@@ -27,12 +27,12 @@ $ sudo mongo
 ### :arrow_right: Criando e inserindo em uma coleção
 
  - Criar uma coleção:
- ```
+ ```json
  db.createCollection("alunos")
  ```
  
  - Inserir valores:
- ```
+ ```json
  db.alunos.insert(
   {
   "nome" : "Amanda",
@@ -41,7 +41,7 @@ $ sudo mongo
 )
  ```
  
- ```
+ ```json
  db.alunos.insert(
   { 
   "nome" : "Amanda",
@@ -65,12 +65,12 @@ $ sudo mongo
  ```
  
  - Fazendo uma pesquisa:
- ```
+ ```json
  db.alunos.find()
  ```
  
  - Remover dados:
- ```
+ ```json
  db.alunos.remove({
   "_id" : ObjectId("5fb19d41335f5fe9b09f37b4")
   }
@@ -80,13 +80,13 @@ $ sudo mongo
  ### :arrow_right: Consultando os dados
  
  - Para ver os resultados de uma forma mais organizada:
- ```
+ ```json
  db.alunos.find().pretty()
  ```
  - *O find( ) é como um SELECT não filtrado de um banco relacional*
  
  - Para achar dados específicos: 
- ```
+ ```json
  db.alunos.find(
   {
   nome : "Amanda"
@@ -94,13 +94,13 @@ $ sudo mongo
   ).pretty()
  ```
  
- ```
+ ```json
  db.alunos.find({ "habilidades.nome" : "dança"}). pretty()
  ```
  
  - Consultas com OR, AND e IN
  - *Com o OR, traz qualquer uma que seja verdadeira*
- ```
+ ```json
  db.alunos.find(
   {
   $or : [
@@ -111,7 +111,7 @@ $ sudo mongo
 )
  ```
  
- ```
+ ```json
  db.alunos.find(
   {
   $or : [
@@ -123,7 +123,7 @@ $ sudo mongo
 )
  ```
 
-```
+```json
 db.alunos.find(
   {
   "curso.nome" : { $in : ["Sistemas de Informação", "Letras"
@@ -133,7 +133,7 @@ db.alunos.find(
 
 ### :arrow_right: Atualizando dados
 
-```
+```json
 db.alunos.update{
   {"curso.nome" : "Sistema de Informação"}, #o que eu quero alterar
   {
@@ -146,7 +146,7 @@ db.alunos.update{
 - *O update, por padrão, só vai atualizar o primeiro documento que ele encontra*
 
 - Para alterar múltiplas linhas:
-```
+```json
 db.alunos.update{
   {"curso.nome" : "Sistema de Informação"},
   {
@@ -162,7 +162,7 @@ db.alunos.update{
 
 - Para atualizar somente um campo
 - Adicionar um valor no array:
-```
+```json
 db.alunos.update(
   {"id_" : {id do objeto}},
   {
@@ -176,7 +176,7 @@ db.alunos.update(
 - *o $push permite usar valores repitidos*
 
 - Colocar dois valores de uma vez: 
-```
+```json
 db.alunos.update(
 {"id_" : {id do objeto}},
 {
@@ -189,7 +189,7 @@ db.alunos.update(
 ### :arrow_right: Ordenando e limitando os dados
 
 - Para achar, por exemplo, alunos com uma determinada nota:
-```
+```json
 db.alunos.find(
   {
   "notas" : 8.5
@@ -200,7 +200,7 @@ db.alunos.find(
 - *O find() busca dentro do array*
 
 - Maior que:
-```
+```json
 db.alunos.find(
   {
   "notas" : {$gt : 5} //maior que 5 
@@ -210,12 +210,12 @@ db.alunos.find(
 - *Basta uma nota do array ser maior que 5*
 
 - Menor que:
-```
+```json
 db.alunos.find({"notas":{$lt:5}})
 ```
 
 - Se quiser só um registro, usar o findOne:
-```
+```json
 db.alunos.findOne(
   {
   "notas" : {$gt : 5} //maior que 5
@@ -224,7 +224,7 @@ db.alunos.findOne(
 ```
 
 - Ordenar pelo campo nome, de modo crescente:
-```
+```json
 db.alunos.find().sort({"nome" : 1}) //-1 é decrescente
 db.alunos.find().sort({"nome" : 1}).limit(3) //só três registros
 ```
@@ -232,7 +232,7 @@ db.alunos.find().sort({"nome" : 1}).limit(3) //só três registros
 ### :arrow_right: Busca por proximidade
 
 - Inserir uma posição do mapa em um aluno:
-```
+```json
 db.alunos.update(
   { "_id" : {id do objeto} },
   {
@@ -248,7 +248,7 @@ db.alunos.update(
 - *"Coordinates" é o padrão em inglês, para poder fazer buscas. Assim como o "type"*
 
 - Busca por posicionamento 
-```
+```json
 db.alunos.aggregate([
   {
   $geoNear : {
@@ -265,7 +265,7 @@ db.alunos.aggregate([
 ])
 ```
 - Buscar a partir do campo "localização":
-```
+```json
 db.alunos.createIndex({
 localizacao : "2dsphere"
 })
@@ -273,7 +273,7 @@ localizacao : "2dsphere"
 - *2d : longitude e latitude*
 
 - Importar json com dados:
-```
+```json
 $ mongoimport -c alunos --jsonArray < alunos.json
 ```
 
